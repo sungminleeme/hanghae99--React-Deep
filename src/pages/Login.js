@@ -2,12 +2,14 @@ import React from 'react';
 import { Text, Input, Grid, Button } from '../elements';
 import {getCookie, setCookie, deleteCookie} from '../shared/Cookie';
 
-export const Login = () => {
+import {useDispatch} from "react-redux";
+import {actionCreators as useActions} from "../redux/modules/user";
+
+export const Login = (props) => {
+    const dispatch = useDispatch();
 
     const login = () => {
-
-        setCookie("user_id", "perl", 3);
-        setCookie("user_pwd", "pppp", 3);
+      dispatch(useActions.logIn({user_name: 'perl'}));
     }
 
     return (

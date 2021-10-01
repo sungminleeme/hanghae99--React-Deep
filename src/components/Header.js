@@ -7,8 +7,11 @@ const Header = (props) => {
     
     React.useEffect(() => {
 
-        let cookie = getCookie("user_id");
+        // 쿠키를 가져와요!
+        let cookie = getCookie('쿠키 이름 넣기!');
+        // 확인해봅시다!
         console.log(cookie);
+        // 쿠키가 있으면?
         if(cookie){
             setIsLogin(true);
         }else{
