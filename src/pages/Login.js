@@ -9,7 +9,7 @@ export const Login = (props) => {
     const dispatch = useDispatch();
 
     const login = () => {
-      dispatch(useActions.logIn({user_name: 'perl'}));
+      dispatch(useActions.loginAction({user_name: 'perl'}));
     }
 
     return (

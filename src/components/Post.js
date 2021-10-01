@@ -23,10 +23,10 @@ export const Post = (props) => {
                     <Text bold>댓글 {props.comment_cnt}개</Text>
                 </Grid>
                 <Grid></Grid>
-                <div>user profile / user naem / insert_dt / is_me btn</div>
+                {/* <div>user profile / user naem / insert_dt / is_me btn</div>
                 <div>contents</div>
                 <div>image</div>
-                <div>comment cnt</div>
+                <div>comment cnt</div> */}
             </Grid>
         </React.Fragment>
         )
