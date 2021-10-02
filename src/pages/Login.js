@@ -4,6 +4,7 @@ import {getCookie, setCookie, deleteCookie} from '../shared/Cookie';
 
 import {useDispatch} from "react-redux";
 import {actionCreators as useActions} from "../redux/modules/user";
+import { emailCheck } from '../shared/common';
 
 export const Login = (props) => {
     const dispatch = useDispatch();
@@ -15,6 +16,11 @@ export const Login = (props) => {
     const login = () => {
       if(id === "" || pwd === ""){
         window.alert("아이디 혹은 비밀번호가 공란입니다.입력해주세요!");
+        return;
+      }
+
+      if(!emailCheck(id)){
+        window.alert("이메일 형식이 맞지 않습니다!");
         return;
       }
       dispatch(useActions.loginFB(id, pwd));
@@ -37,6 +43,7 @@ export const Login = (props) => {
           />
         </Grid>
 
+        {/* type에 password를 줘서 비밀번호가 안보이게 하기 */}
         <Grid padding="16px 0px">
           <Input
             label="패스워드"

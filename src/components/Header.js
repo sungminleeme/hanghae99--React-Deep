@@ -23,26 +23,29 @@ const Header = (props) => {
 
     // if(is_login && is_session){     return (     ) } <Button text="매거진"
     // onClick={() => {     history.push('/post'); }}></Button> 코드
+    if(is_login && is_session) {
+        return (
+            <Permit>
+                <React.Fragment>
+                    <Grid is_flex="is_flex" padding="4px 16px">
+                        <Grid>
+                            <Text margin="0px" size="24px" bold="bold">헬로</Text>
+                        </Grid>
 
-    <Permit>
-        <React.Fragment>
-            <Grid is_flex="is_flex" padding="4px 16px">
-                <Grid>
-                    <Text margin="0px" size="24px" bold="bold">헬로</Text>
-                </Grid>
-
-                <Grid is_flex="is_flex">
-                    <Button text="내정보"></Button>
-                    <Button text="알림"></Button>
-                    <Button
-                        text="로그아웃"
-                        _onClick={() => {
-                            dispatch(userActions.logoutFB());
-                        }}></Button>
-                </Grid>
-            </Grid>
-        </React.Fragment>
-    </Permit>;
+                        <Grid is_flex="is_flex">
+                            <Button text="내정보"></Button>
+                            <Button text="알림"></Button>
+                            <Button
+                                text="로그아웃"
+                                _onClick={() => {
+                                    dispatch(userActions.logoutFB());
+                                }}></Button>
+                        </Grid>
+                    </Grid>
+                </React.Fragment>
+            </Permit>
+        );
+    }
     return (
         <React.Fragment>
             <Grid is_flex="is_flex" padding="4px 16px">

@@ -11,7 +11,7 @@ export const Input = (props) => {
         </React.Fragment>
     )
 }
-
+// type에 텍스트 준거 기억하기
 Input.defaultProps = {
     label: '텍스트',
     placeholder: '텍스트를 입력해주세요.',
