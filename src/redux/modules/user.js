@@ -6,7 +6,6 @@ import {setCookie, getCookie, deleteCookie} from "../../shared/Cookie";
 import {auth} from "../../shared/firebase";
 import firebase from "firebase/app";
 
-
 // actions
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
@@ -33,27 +32,28 @@ const loginFB = (id, pwd) => {
     // history 페이지 이동 할 때 사용
     return function (dispatch, getState, {history}) {
 
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
-            auth
-            .signInWithEmailAndPassword(id, pwd)
-            .then((userCredential) => {
-                console.log(userCredential);
-                const user = userCredential.user;
-                // Signed in ...
-                dispatch(setUser({user_name: user.displayName, id: id, user_profile: '', uid: user.uid,})
-                );
-                history.push("/");
-            })
-            
-        
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+        auth
+            .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .then((res) => {
+                auth
+                    .signInWithEmailAndPassword(id, pwd)
+                    .then((userCredential) => {
+                        console.log(userCredential);
+                        const user = userCredential.user;
+                        // Signed in ...
+                        dispatch(
+                            setUser({user_name: user.displayName, id: id, user_profile: '', uid: user.uid})
+                        );
+                        history.push("/");
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
 
-                console.log(errorCode, errorMessage);
+                        console.log(errorCode, errorMessage);
+                    });
             });
-        });
-        
+
     }
 }
 
@@ -73,7 +73,9 @@ const signupFB = (id, pwd, user_name) => {
                     .currentUser
                     .updateProfile({displayName: user_name})
                     .then(() => {
-                        dispatch(setUser({user_name: user_name, id: id, user_profile: '', udi: user.uid,}));
+                        dispatch(
+                            setUser({user_name: user_name, id: id, user_profile: '', udi: user.uid})
+                        );
                         history.push('/');
                     })
                     .catch((error) => {
@@ -88,21 +90,27 @@ const signupFB = (id, pwd, user_name) => {
 };
 
 const loginCheckFB = () => {
-    return function (dispatch,getState, {history}){
+    return function (dispatch, getState, {history}) {
         auth.onAuthStateChanged((user) => {
-            if(user){
-                dispatch(setUser({
-                    user_name: user.displayName,
-                    user_profile: "",
-                    id: user.email,
-                    uid: user.uid,
-            })
-        );
-    }else{
-        dispatch(logOut());
-    }
-    });
+            if (user) {
+                dispatch(
+                    setUser({user_name: user.displayName, user_profile: "", id: user.email, uid: user.uid})
+                );
+            } else {
+                dispatch(logOut());
+            }
+        });
+    };
 };
+
+const logoutFB = () => {
+    return function (dispatch, getState, {history}) {
+        auth.signOut().then(() => {
+            dispatch(logOut());
+            history.replace('/');
+        });
+
+    };
 };
 
 //reducer
@@ -127,6 +135,7 @@ const actionCreators = {
     signupFB,
     loginFB,
     loginCheckFB,
+    logoutFB,
 };
 
 export {
