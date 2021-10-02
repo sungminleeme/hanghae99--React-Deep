@@ -8,9 +8,17 @@ import {actionCreators as useActions} from "../redux/modules/user";
 export const Login = (props) => {
     const dispatch = useDispatch();
 
+    const [id, setId] = React.useState("");
+    const [pwd, setPwd] = React.useState("");
+  
+
     const login = () => {
-      dispatch(useActions.loginAction({user_name: 'perl'}));
-    }
+      if(id === "" || pwd === ""){
+        window.alert("아이디 혹은 비밀번호가 공란입니다.입력해주세요!");
+        return;
+      }
+      dispatch(useActions.loginFB(id, pwd));
+    };
 
     return (
           <React.Fragment>
@@ -23,8 +31,8 @@ export const Login = (props) => {
           <Input
             label="아이디"
             placeholder="아이디를 입력해주세요."
-            _onChange={() => {
-              console.log("아이디 입력");
+            _onChange={(e) => {
+              setId(e.target.value);
             }}
           />
         </Grid>
@@ -33,8 +41,9 @@ export const Login = (props) => {
           <Input
             label="패스워드"
             placeholder="패스워드 입력해주세요."
-            _onChange={() => {
-                console.log("패스워드 입력");
+            type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
             }}
           />
         </Grid>

@@ -27,31 +27,54 @@ const user_initial = {
 };
 
 //middleware actions
-
+const loginFB = (id, pwd) => {
+    // history 페이지 이동 할 때 사용
+    return function (dispatch, getState, {history}) {
+        auth
+            .signInWithEmailAndPassword(id, pwd)
+            .then((userCredential) => {
+                console.log(userCredential);
+                const user = userCredential.user;
+                // Signed in ...
+                dispatch(setUser({user_name: user.displayName, id: id, user_profile: ''})
+                );
+                history.push("/");
+            })
+            
+        
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    }
+}
 
 const signupFB = (id, pwd, user_name) => {
     return function (dispatch, getState, {history}) {
 
+        auth
+            .createUserWithEmailAndPassword(id, pwd)
+            .then((userCredential) => {
+
+                // Signed in
+                const user = userCredential.user;
+                // ...
+                console.log(user);
+
                 auth
-                .createUserWithEmailAndPassword(id, pwd)
-                .then((userCredential) => {
-
-                        // Signed in
-                        var user = userCredential.user;
-                        // ...
-                        console.log(user);
-
-                        auth.currentUser.updateProfile({displayName: user_name})
-                            .then(() => {
-                                dispatch(setUser({user_name: user_name, id: id, user_profile: ''}));
-                                history.push('/');
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            });
-                }).catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                    .currentUser
+                    .updateProfile({displayName: user_name})
+                    .then(() => {
+                        dispatch(setUser({user_name: user_name, id: id, user_profile: ''}));
+                        history.push('/');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
             });
     };
 };
@@ -76,6 +99,7 @@ const actionCreators = {
     logOut,
     getUser,
     signupFB,
+    loginFB
 };
 
 export {
