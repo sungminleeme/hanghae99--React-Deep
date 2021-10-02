@@ -4,6 +4,8 @@ import {produce} from "immer";
 import {setCookie, getCookie, deleteCookie} from "../../shared/Cookie";
 
 import {auth} from "../../shared/firebase";
+import firebase from "firebase/app";
+
 
 // actions
 const LOG_IN = "LOG_IN";
@@ -30,13 +32,15 @@ const user_initial = {
 const loginFB = (id, pwd) => {
     // history 페이지 이동 할 때 사용
     return function (dispatch, getState, {history}) {
-        auth
+
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
+            auth
             .signInWithEmailAndPassword(id, pwd)
             .then((userCredential) => {
                 console.log(userCredential);
                 const user = userCredential.user;
                 // Signed in ...
-                dispatch(setUser({user_name: user.displayName, id: id, user_profile: ''})
+                dispatch(setUser({user_name: user.displayName, id: id, user_profile: '', uid: user.uid,})
                 );
                 history.push("/");
             })
@@ -45,7 +49,11 @@ const loginFB = (id, pwd) => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+
+                console.log(errorCode, errorMessage);
             });
+        });
+        
     }
 }
 
@@ -65,7 +73,7 @@ const signupFB = (id, pwd, user_name) => {
                     .currentUser
                     .updateProfile({displayName: user_name})
                     .then(() => {
-                        dispatch(setUser({user_name: user_name, id: id, user_profile: ''}));
+                        dispatch(setUser({user_name: user_name, id: id, user_profile: '', udi: user.uid,}));
                         history.push('/');
                     })
                     .catch((error) => {
@@ -77,6 +85,24 @@ const signupFB = (id, pwd, user_name) => {
                 const errorMessage = error.message;
             });
     };
+};
+
+const loginCheckFB = () => {
+    return function (dispatch,getState, {history}){
+        auth.onAuthStateChanged((user) => {
+            if(user){
+                dispatch(setUser({
+                    user_name: user.displayName,
+                    user_profile: "",
+                    id: user.email,
+                    uid: user.uid,
+            })
+        );
+    }else{
+        dispatch(logOut());
+    }
+    });
+};
 };
 
 //reducer
@@ -99,7 +125,8 @@ const actionCreators = {
     logOut,
     getUser,
     signupFB,
-    loginFB
+    loginFB,
+    loginCheckFB,
 };
 
 export {
