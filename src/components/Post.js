@@ -20,7 +20,7 @@ export const Post = (props) => {
                     <Image shape="rectangle" src={props.src}></Image>
                 </Grid>
                 <Grid padding="16px">
-                    <Text bold>댓글 {props.comment_cnt}개</Text>
+                    <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>
                 </Grid>
                 <Grid></Grid>
                 {/* <div>user profile / user naem / insert_dt / is_me btn</div>
