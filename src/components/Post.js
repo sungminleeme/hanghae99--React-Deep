@@ -17,7 +17,7 @@ export const Post = (props) => {
                     <Text>{props.contents}</Text>
                 </Grid>
                 <Grid>
-                    <Image shape="rectangle" src={props.src}></Image>
+                    <Image shape="rectangle" src={props.image_url}></Image>
                 </Grid>
                 <Grid padding="16px">
                     <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>

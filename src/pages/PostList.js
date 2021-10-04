@@ -10,7 +10,10 @@ const PostList = (props) => {
 
 
     React.useEffect(() => {
-        dispatch(postActions.getPostFB());
+        if(post_list.length === 0) {
+            dispatch(postActions.getPostFB());
+        }
+        
 
     }, []);
     //빈배열이 들어가야 처음에 한번

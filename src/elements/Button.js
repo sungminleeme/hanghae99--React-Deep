@@ -7,7 +7,7 @@ export const Button = (props) => {
     if(is_float){
         return(
             <React.Fragment>
-                <FloatButton onClick>{text? text : children}</FloatButton>
+                <FloatButton onClick={_onClick}>{text? text : children}</FloatButton>
             </React.Fragment>
         )
     }
