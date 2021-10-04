@@ -20,9 +20,9 @@ export const Image = (props) => {
     }
 
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+            <ImageDefault {...styles}></ImageDefault>
+        </React.Fragment>
     )
 }
 
@@ -32,11 +32,19 @@ Image.defaultProps = {
     size:36,
 }
 
+const ImageDefault = styled.div`
+--size: ${(props) => props.size}px;
+    width : var(--size);
+    height: var(--size);
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+`;
+
 const ImageCircle = styled.div`
     --size: ${(props) => props.size}px;
     width : var(--size);
     height: var(--size);
-    border-radius: var(--size);
+    border-radiu s: var(--size);
     background-image: url("${(props) => props.src}");
     background-size: cover;
     margin: 4px;
