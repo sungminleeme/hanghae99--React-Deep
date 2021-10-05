@@ -1,17 +1,21 @@
-import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
+import React from "react";
 
-export const Image = (props) => {
-    const { shape, src, size } = props;
+const Image = (props) => {
+    const {shape, src, size} = props;
+
     const styles = {
         src: src,
-        size: size
+        size: size,
     }
 
-    if (shape === "circle") {
-        return <ImageCircle {...styles}></ImageCircle>
+    if(shape === "circle"){
+        return (
+            <ImageCircle {...styles}></ImageCircle>
+        )
     }
-    if (shape === "rectangle") {
+
+    if(shape === "rectangle"){
         return (
             <AspectOutter>
                 <AspectInner {...styles}></AspectInner>
@@ -27,27 +31,17 @@ export const Image = (props) => {
 }
 
 Image.defaultProps = {
-    shape: "circle",
-    src: "https://likerdo-bucket-list.s3.ap-northeast-2.amazonaws.com/yui.jpg",
-    size:36,
-}
+  shape: "circle",
+  src: "https://likerdo-bucket-list.s3.ap-northeast-2.amazonaws.com/yui.jpg",
+  size: 36,
+};
 
 const ImageDefault = styled.div`
---size: ${(props) => props.size}px;
-    width : var(--size);
-    height: var(--size);
-    background-image: url("${(props) => props.src}");
-    background-size: cover;
-`;
-
-const ImageCircle = styled.div`
-    --size: ${(props) => props.size}px;
-    width : var(--size);
-    height: var(--size);
-    border-radiu s: var(--size);
-    background-image: url("${(props) => props.src}");
-    background-size: cover;
-    margin: 4px;
+  --size: ${(props) => props.size}px;
+  width: var(--size);
+  height: var(--size);
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
 `;
 
 const AspectOutter = styled.div`
@@ -61,6 +55,17 @@ const AspectInner = styled.div`
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
+`;
+
+const ImageCircle = styled.div`
+    --size: ${(props) => props.size}px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--size);
+
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+    margin: 4px;
 `;
 
 export default Image;

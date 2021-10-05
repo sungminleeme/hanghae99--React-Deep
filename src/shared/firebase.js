@@ -2,9 +2,10 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDTCY7Rv30bRBBt7dPpe9dL6Pw_ctoxUqU",
+  apiKey: "AIzaSyDTCY7Rv30bRBBt7dPpe9dL6Pw_ctoxUqU",
   authDomain: "homework-2afd9.firebaseapp.com",
   projectId: "homework-2afd9",
   storageBucket: "homework-2afd9.appspot.com",
@@ -19,5 +20,5 @@ const apiKey = firebaseConfig.apiKey;
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const storage = firebase.storage();
-
-export{auth, apiKey, firestore, storage};
+const realtime = firebase.database();
+export{auth, apiKey, firestore, storage, realtime};

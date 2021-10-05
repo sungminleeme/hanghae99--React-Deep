@@ -1,33 +1,36 @@
-import React from 'react';
-import { Text, Input, Grid, Button } from '../elements';
-import {getCookie, setCookie, deleteCookie} from '../shared/Cookie';
+import React from "react";
+import { Text, Input, Grid, Button } from "../elements";
+import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 
-import {useDispatch} from "react-redux";
-import {actionCreators as useActions} from "../redux/modules/user";
-import { emailCheck } from '../shared/common';
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
-export const Login = (props) => {
-    const dispatch = useDispatch();
+const Login = (props) => {
+  const dispatch = useDispatch();
 
-    const [id, setId] = React.useState("");
-    const [pwd, setPwd] = React.useState("");
-  
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
 
-    const login = () => {
-      if(id === "" || pwd === ""){
-        window.alert("아이디 혹은 비밀번호가 공란입니다.입력해주세요!");
-        return;
-      }
+  const login = () => {
 
-      if(!emailCheck(id)){
-        window.alert("이메일 형식이 맞지 않습니다!");
-        return;
-      }
-      dispatch(useActions.loginFB(id, pwd));
-    };
+    console.log(id);
 
-    return (
-          <React.Fragment>
+    if(id === "" || pwd === ""){
+      window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
+      return;
+    }
+
+    if(!emailCheck(id)){
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+
+    dispatch(userActions.loginFB(id, pwd));
+  };
+
+  return (
+    <React.Fragment>
       <Grid padding="16px">
         <Text size="32px" bold>
           로그인
@@ -43,7 +46,6 @@ export const Login = (props) => {
           />
         </Grid>
 
-        {/* type에 password를 줘서 비밀번호가 안보이게 하기 */}
         <Grid padding="16px 0px">
           <Input
             label="패스워드"
@@ -52,19 +54,22 @@ export const Login = (props) => {
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
+            value={pwd}
+            is_submit
+            onSubmit={login}
           />
         </Grid>
 
         <Button
           text="로그인하기"
           _onClick={() => {
-            console.log("로그인");
+            console.log("로그인 했어!");
             login();
           }}
-        />
+        ></Button>
       </Grid>
     </React.Fragment>
-    )
-}
+  );
+};
 
 export default Login;
