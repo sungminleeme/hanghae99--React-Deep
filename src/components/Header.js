@@ -27,14 +27,14 @@ const Header = (props) => {
         return (
             <Permit>
                 <React.Fragment>
-                    <Grid is_flex="is_flex" padding="4px 16px">
+                    <Grid is_flex padding="4px 16px">
                         <Grid>
-                            <Button text="메인"
+                            <Button size="24px" bold
                         _onClick={() => {
-                            history.push('/'); }}> </Button>
+                            history.push('/'); }}>매거진 </Button>
                         </Grid>
 
-                        <Grid is_flex="is_flex">
+                        <Grid is_flex>
                             <Button text="내정보"></Button>
                             <Button _onClick={() => {
                                 history.push('/noti');
@@ -52,14 +52,14 @@ const Header = (props) => {
     }
     return (
         <React.Fragment>
-            <Grid is_flex="is_flex" padding="4px 16px">
+            <Grid is_flex padding="4px 16px">
                 <Grid>
-                <Button text="메인"
+                <Button size="24px" bold
                         _onClick={() => {
-                            history.push('/'); }}> </Button>
+                            history.push('/'); }}>매거진 </Button>
                 </Grid>
 
-                <Grid is_flex="is_flex">
+                <Grid is_flex>
                     <Button
                         text="로그인"
                         _onClick={() => {
